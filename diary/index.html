@@ -5,11 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>test-page - ygnid's Blog</title>
+  <title>日记 - ygnid's Blog</title>
   <meta name="author" content="ygnid">
 
   
-  <meta name="description" content=" Test-page Nov 7th, 2012 this is only a test page. Nov 7th, 2012 Tweet Recent Posts 实现Putty的自动登录SSH my diary ">
+  <meta name="description" content="日记 2012-11-6 WRF预报系统Bug修正 修正了读取指定经纬度预报结果的bug
+修正了业务系统使用wrf.sandbox.sh后造成的bug 浦口辐射测量数据与WRF预报值的对比 对比了从11月2号开始的4天，结果出我意料的好，其中一天出现了明显的辐射衰减， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://ygnid.github.com/test-page/">
+  <link rel="canonical" href="http://ygnid.github.com/diary/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -66,52 +67,62 @@
 <article role="article">
   
   <header>
-    <h1 class="entry-title">Test-page</h1>
-    <p class="meta">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-07T17:43:00+08:00" pubdate data-updated="true">Nov 7<span>th</span>, 2012</time></p>
+    <h1 class="entry-title">日记</h1>
+    
   </header>
   
-  <p>this is only a test page.</p>
+  <h1>2012-11-6</h1>
+
+<h3>WRF预报系统Bug修正</h3>
+
+<ul>
+<li>修正了读取指定经纬度预报结果的bug</li>
+<li>修正了业务系统使用wrf.sandbox.sh后造成的bug</li>
+</ul>
+
+
+<h3>浦口辐射测量数据与WRF预报值的对比</h3>
+
+<p>对比了从11月2号开始的4天，结果出我意料的好，其中一天出现了明显的辐射衰减，WRF的很好的预报出了衰减的大小，预报曲线和观测符合程度相当高。</p>
+
+<h1>2012-11-7</h1>
+
+<h3>实现Putty自动登录SSH</h3>
+
+<p>网上给出的教程大多数都不能用，原因是PuttyGen和OpenSSH使用的Key Pair格式不匹配。经过漫长的google，终于找到一个解决方案如下。本方法参考<a href="http://www.walkernews.net/2009/03/22/how-to-fix-server-refused-our-key-error-that-caused-by-putty-generated-rsa-public-key/">这里</a>。</p>
+
+<p>主要步骤是：</p>
+
+<ol>
+<li>用puttygen生成private/public key pair</li>
+<li>在VIM中修改public key：
+
+<ul>
+<li>首先删除前两行和最后一行</li>
+<li>然后用Ctrl-j将中间的几行合并为单行，并删除中间的空格</li>
+<li>在行首添加&#8221;ssh-rsa &#8220;，行尾添加&#8221;== username@domain&#8221;</li>
+<li>保存</li>
+</ul>
+</li>
+<li>将public key上传至SSH Server，添加至~/.ssh/authorized_keys。</li>
+<li>在Putty中进行设置，在“SSH-Auth”添加Private Key文件，后缀名是&#8221;.ppk&#8221;。</li>
+<li>用Pageant添加key，这样就不用输入sshkey的password。</li>
+</ol>
+
+
+<h3>在github.com建立了自己的blog</h3>
+
+<p>就是目前这个空间咯。</p>
+
+<p>使用的是<a href="http://octopress.org">Octopress Blog</a>，一个基于<a href="http://jekyllrb.com/">Yekyll</a>的Blog框架。</p>
+
+<h3>书稿修订</h3>
+
+<p>将YY的新能源书稿进行了修订，增加了发展历史介绍，以及引用文献。</p>
 
   
     <footer>
-      <p class="meta">
-        
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-07T17:43:00+08:00" pubdate data-updated="true">Nov 7<span>th</span>, 2012</time>
-        
-      </p>
       
-        <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://ygnid.github.com/test-page/index.html" data-via="" data-counturl="http://ygnid.github.com/test-page/index.html" >Tweet</a>
-  
-  
-  
-</div>
-
       
     </footer>
   
@@ -126,11 +137,7 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2012/11/07/putty-auto-SSH/">实现Putty的自动登录SSH</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/11/06/diary/">my diary</a>
+        <a href="/blog/2012/11/07/putty-auto-SSH/">实现Putty自动登录SSH</a>
       </li>
     
   </ul>
