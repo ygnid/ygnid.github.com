@@ -1,13 +1,12 @@
 ---
 layout: post
-title: "实现Putty的自动登录SSH"
+title: "实现Putty自动登录SSH"
 date: 2012-11-07 17:28
 comments: true
 categories: putty, SSH
 ---
 
-网上给出的教程大多数都不能用，原因是PuttyGen和OpenSSH使用的Key Pair格式不匹配。经过漫长的google，终于找到一个解决方案如下。本方法参考
->http://www.walkernews.net/2009/03/22/how-to-fix-server-refused-our-key-error-that-caused-by-putty-generated-rsa-public-key/
+网上给出的教程大多数都不能用，原因是PuttyGen和OpenSSH使用的Key Pair格式不匹配。经过漫长的google，终于找到一个解决方案如下。本方法参考[这里](http://www.walkernews.net/2009/03/22/how-to-fix-server-refused-our-key-error-that-caused-by-putty-generated-rsa-public-key/)
 
 主要步骤是：
 
