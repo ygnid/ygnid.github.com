@@ -9,8 +9,8 @@
   <meta name="author" content="ygnid">
 
   
-  <meta name="description" content="网上给出的教程大多数都不能用，原因是PuttyGen和OpenSSH使用的Key Pair格式不匹配。经过漫长的google，终于找到一个解决方案如下。本方法参考这里 主要步骤是： 用puttygen生成private/public key pair
-在VIM中修改public key： &hellip;">
+  <meta name="description" content="lines = readAsciiTable(csvFile,1,"string",1)
+delim = "," towerid_m = strip_quotes ( ndtooned (str_get_field(lines, 1, delim))) example for ruby: &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,55 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/11/12/test-code/">Test Code in Blog</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-12T17:00:00+08:00" pubdate data-updated="true">Nov 12<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><pre><code>lines = readAsciiTable(csvFile,1,"string",1)
+delim = ","
+
+towerid_m = strip_quotes ( ndtooned (str_get_field(lines, 1, delim)))
+</code></pre>
+
+<p>example for ruby:</p>
+
+<pre><code>class Fixnum
+    def prime?
+        ('1' * self) !~ /^1?$|^(11+?)\1+$/
+    end
+end
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -132,6 +181,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/11/12/test-code/">test code in blog</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2012/11/07/putty-auto-SSH/">实现Putty自动登录SSH</a>
