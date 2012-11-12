@@ -1,0 +1,20 @@
+---
+layout: post
+title: "test code in blog"
+date: 2012-11-12 17:00
+comments: true
+categories: code, test
+---
+
+	lines = readAsciiTable(csvFile,1,"string",1)
+	delim = ","
+
+	towerid_m = strip_quotes ( ndtooned (str_get_field(lines, 1, delim)))
+
+example for ruby:
+
+	class Fixnum
+  		def prime?
+    		('1' * self) !~ /^1?$|^(11+?)\1+$/
+  		end
+	end

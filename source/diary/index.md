@@ -43,3 +43,23 @@ footer: true
 
 ### 书稿修订
 将YY的新能源书稿进行了修订，增加了发展历史介绍，以及引用文献。
+
+2012-11-12 晴
+===
+上周五一到公司，就发现笔记本电脑坏了，开机就报错“FAN ERROR”，风扇硬件故障。这导致我前几天都无法更新这个Blog，看来这是Octopress blog系统的一个问题，即无法简单的在其他电脑上更新内容。
+
+上周完成了基于NCL的CSV文件读取以及WRF预报结果按预报时段分类的脚本。其主要思想是依次读取每天的预报文件，找出对应预报时段的数据，再存放至统一的变量中。其中主要的技术点有如下几个：
+
+1. **NCL读取ASCII文件**：可用readAsciiTable()加上str_get_field()完成。用前者可将整个文件存入一个string数组内，再用后者将想要的column提取出来。例如：
+
+		lines = readAsciiTable(csvFile,1,"string",1)
+		delim = ","
+		column_1 = strip_quotes ( ndtooned (str_get_field(lines, 1, delim)))
+
+2. **查找数组成员的序号**：可用ind_nearest_coord()。如果想要数组的一个连续片段，可以用coordinate subscripting的方式。
+
+3. **NCL格式化输出TXT文本**：以前用的是老土的循环生成各行string的方式，这次发现一个简单方法，即将*格式string*和*内容string*（通常是将数组用sprintf()或tostring()转化而来的string数组）直接用“+”连接起来。例如：
+
+		printArray = ( string1 + ", " + string2 \
+		                            + ", "+ sprintf("%6.2f", float_array1) + ", "+ sprinti("%3i", int_array1) \
+		                            + ", "+ sprintf("%6.2f", float_array2) + ", "+ sprinti("%3i", int_array2))
