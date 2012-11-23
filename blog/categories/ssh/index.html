@@ -5,12 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>实现Putty自动登录SSH - ygnid's Blog</title>
+  <title>Category: SSH - ygnid's Blog</title>
   <meta name="author" content="ygnid">
 
   
-  <meta name="description" content="网上给出的教程大多数都不能用，原因是PuttyGen和OpenSSH使用的Key Pair格式不匹配。经过漫长的google，终于找到一个解决方案如下。本方法参考这里 主要步骤是： 用puttygen生成private/public key pair
-在VIM中修改public key： &hellip;">
+  <meta name="description" content="Category: SSH">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://ygnid.github.com/blog/2012/11/07/putty-auto-SSH/">
+  <link rel="canonical" href="http://ygnid.github.comblog/categories/ssh/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -64,103 +63,35 @@
   <div id="main">
     <div id="content">
       <div>
-<article class="hentry" role="article">
+<article role="article">
   
   <header>
-    
-      <h1 class="entry-title">实现Putty自动登录SSH</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-07T17:28:00+08:00" pubdate data-updated="true">Nov 7<span>th</span>, 2012</time>
-        
-      </p>
+    <h1 class="entry-title">Category: SSH</h1>
     
   </header>
+  
+  <div id="blog-archives" class="category">
 
 
-<div class="entry-content"><p>网上给出的教程大多数都不能用，原因是PuttyGen和OpenSSH使用的Key Pair格式不匹配。经过漫长的google，终于找到一个解决方案如下。本方法参考<a href="http://www.walkernews.net/2009/03/22/how-to-fix-server-refused-our-key-error-that-caused-by-putty-generated-rsa-public-key/">这里</a></p>
 
-<p>主要步骤是：</p>
+  
+  <h2>2012</h2>
 
-<ol>
-<li>用puttygen生成private/public key pair</li>
-<li>在VIM中修改public key：
+<article>
+  
+<h1><a href="/blog/2012/11/07/putty-auto-SSH/">实现Putty自动登录SSH</a></h1>
+<time datetime="2012-11-07T17:28:00+08:00" pubdate><span class='month'>Nov</span> <span class='day'>07</span> <span class='year'>2012</span></time>
 
-<ul>
-<li>首先删除前两行和最后一行</li>
-<li>然后用Ctrl-j将中间的几行合并为单行，并删除中间的空格</li>
-<li>在行首添加&#8221;ssh-rsa &#8220;，行尾添加&#8221;== username@domain&#8221;</li>
-<li>保存</li>
-</ul>
-</li>
-<li>将public key上传至SSH Server，添加至~/.ssh/authorized_keys。</li>
-<li>在Putty中进行设置，在“SSH-Auth”添加Private Key文件，后缀名是&#8221;.ppk&#8221;。</li>
-<li>用Pageant添加key，这样就不用输入sshkey的password。</li>
-</ol>
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/ssh/'>SSH</a>, <a class='category' href='/blog/categories/putty-/'>putty,</a></span>
+</footer>
+
+
+</article>
 
 </div>
 
-
-  <footer>
-    <p class="meta">
-      
   
-
-<span class="byline author vcard">Posted by <span class="fn">ygnid</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-07T17:28:00+08:00" pubdate data-updated="true">Nov 7<span>th</span>, 2012</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/ssh/'>SSH</a>, <a class='category' href='/blog/categories/putty-/'>putty,</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://ygnid.github.com/blog/2012/11/07/putty-auto-SSH/" data-via="" data-counturl="http://ygnid.github.com/blog/2012/11/07/putty-auto-SSH/" >Tweet</a>
-  
-  
-  
-</div>
-
-    
-    <p class="meta">
-      
-      
-        <a class="basic-alignment right" href="/blog/2012/11/12/test-code/" title="Next Post: test code in blog">test code in blog &raquo;</a>
-      
-    </p>
-  </footer>
 </article>
 
 </div>

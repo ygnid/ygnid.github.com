@@ -5,11 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>ygnid's Blog</title>
+  <title>test code in blog - ygnid's Blog</title>
   <meta name="author" content="ygnid">
 
   
-  <meta name="description" content="前几天在VirtualBox里装了个FreeBSD 9.0-RELEASE amd64，发现以前遇到的问题现在还存在，具体问题如下： 启动到GDM后键盘无响应：这据说是Hal的Bug导致的，解决方案是在xorg.conf里加入以下设置 &lt;code hear&gt; &hellip;">
+  <meta name="description" content="lines = readAsciiTable(csvFile,1,"string",1)
+delim = "," towerid_m = strip_quotes ( ndtooned (str_get_field(lines, 1, delim))) example for ruby: &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://ygnid.github.com/">
+  <link rel="canonical" href="http://ygnid.github.com/blog/2012/11/12/test-code/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -62,60 +63,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/11/23/FreeBSD-in-VirtualBox/">FreeBSD in VirtualBox</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-23T17:00:00+08:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>前几天在VirtualBox里装了个FreeBSD 9.0-RELEASE amd64，发现以前遇到的问题现在还存在，具体问题如下：</p>
-
-<ul>
-<li><p><strong>启动到GDM后键盘无响应</strong>：这据说是Hal的Bug导致的，解决方案是在xorg.conf里加入以下设置</p>
-
-<pre><code>  &lt;code hear&gt;
-</code></pre></li>
-<li><p><strong>启动时sendmail提示hostname不能识别</strong>：这是由于/etc/rc.conf设置的hostname不符合规范，正确的写法是xxx.yyy，也就是其中应至少有一个&#8221;.&#8221;。注意，修改了hostname以后，/etc/hosts也要做相应修改。</p></li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/12/test-code/">Test Code in Blog</a></h1>
+      <h1 class="entry-title">Test Code in Blog</h1>
     
     
       <p class="meta">
@@ -138,7 +91,7 @@
   </header>
 
 
-  <div class="entry-content"><pre><code>lines = readAsciiTable(csvFile,1,"string",1)
+<div class="entry-content"><pre><code>lines = readAsciiTable(csvFile,1,"string",1)
 delim = ","
 
 towerid_m = strip_quotes ( ndtooned (str_get_field(lines, 1, delim)))
@@ -153,22 +106,16 @@ towerid_m = strip_quotes ( ndtooned (str_get_field(lines, 1, delim)))
 end
 </code></pre>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/07/putty-auto-SSH/">实现Putty自动登录SSH</a></h1>
-    
-    
-      <p class="meta">
-        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">ygnid</span></span>
+
+      
 
 
 
@@ -180,46 +127,40 @@ end
   
 
 
-<time datetime="2012-11-07T17:28:00+08:00" pubdate data-updated="true">Nov 7<span>th</span>, 2012</time>
-        
-      </p>
+<time datetime="2012-11-12T17:00:00+08:00" pubdate data-updated="true">Nov 12<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/code-/'>code,</a>, <a class='category' href='/blog/categories/test/'>test</a>
+  
+</span>
+
+
+    </p>
     
-  </header>
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://ygnid.github.com/blog/2012/11/12/test-code/" data-via="" data-counturl="http://ygnid.github.com/blog/2012/11/12/test-code/" >Tweet</a>
+  
+  
+  
+</div>
 
-
-  <div class="entry-content"><p>网上给出的教程大多数都不能用，原因是PuttyGen和OpenSSH使用的Key Pair格式不匹配。经过漫长的google，终于找到一个解决方案如下。本方法参考<a href="http://www.walkernews.net/2009/03/22/how-to-fix-server-refused-our-key-error-that-caused-by-putty-generated-rsa-public-key/">这里</a></p>
-
-<p>主要步骤是：</p>
-
-<ol>
-<li>用puttygen生成private/public key pair</li>
-<li>在VIM中修改public key：
-
-<ul>
-<li>首先删除前两行和最后一行</li>
-<li>然后用Ctrl-j将中间的几行合并为单行，并删除中间的空格</li>
-<li>在行首添加&#8221;ssh-rsa &#8220;，行尾添加&#8221;== username@domain&#8221;</li>
-<li>保存</li>
-</ul>
-</li>
-<li>将public key上传至SSH Server，添加至~/.ssh/authorized_keys。</li>
-<li>在Putty中进行设置，在“SSH-Auth”添加Private Key文件，后缀名是&#8221;.ppk&#8221;。</li>
-<li>用Pageant添加key，这样就不用输入sshkey的password。</li>
-</ol>
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/11/07/putty-auto-SSH/" title="Previous Post: 实现Putty自动登录SSH">&laquo; 实现Putty自动登录SSH</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/11/23/FreeBSD-in-VirtualBox/" title="Next Post: FreeBSD in VirtualBox">FreeBSD in VirtualBox &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
 
 </div>
-  
-  
 
-
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
 <aside class="sidebar">
   
     <section>
@@ -248,6 +189,7 @@ end
 
   
 </aside>
+
 
     </div>
   </div>

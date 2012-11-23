@@ -143,6 +143,26 @@
 </ol>
 
 
+<h1>2012-11-13 晴</h1>
+
+<p>今天找了TM帮忙处理GIS文件提取边界的问题。</p>
+
+<h3>改造wrf_user_getvar()</h3>
+
+<p>对wrf_user_getvar()进行了改造，以支持读取特定区域和高度范围的WRF结果，其优点是对大文件的读取速度有显著地提升。</p>
+
+<h1>2012-11-14 晴</h1>
+
+<h3>升级NCL版本到V6.1.0</h3>
+
+<h3>完成了对WRF站点数据的快速读取</h3>
+
+<p>使用昨天编写的改进版wrf_user_getvar()，实现了对WRF站点数据（主要是风速）的快速读取。</p>
+
+<h1>2012-11-15 晴</h1>
+
+<h3>用NCL实现了判断一个点是否在多边形内的算法</h3>
+
   
     <footer>
       
@@ -158,6 +178,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/11/23/FreeBSD-in-VirtualBox/">FreeBSD in VirtualBox</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2012/11/12/test-code/">test code in blog</a>
