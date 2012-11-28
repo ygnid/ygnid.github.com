@@ -63,3 +63,37 @@ footer: true
 		printArray = ( string1 + ", " + string2 \
 		                            + ", "+ sprintf("%6.2f", float_array1) + ", "+ sprinti("%3i", int_array1) \
 		                            + ", "+ sprintf("%6.2f", float_array2) + ", "+ sprinti("%3i", int_array2))
+
+
+2012-11-13 晴
+===
+今天找了TM帮忙处理GIS文件提取边界的问题。
+
+### 改造wrf\_user\_getvar()
+
+对wrf\_user\_getvar()进行了改造，以支持读取特定区域和高度范围的WRF结果，其优点是对大文件的读取速度有显著地提升。
+
+2012-11-14 晴
+===
+
+### 升级NCL版本到V6.1.0
+
+### 完成了对WRF站点数据的快速读取
+使用昨天编写的改进版wrf\_user\_getvar()，实现了对WRF站点数据（主要是风速）的快速读取。
+
+
+2012-11-15 晴
+===
+
+### 用NCL实现了判断一个点是否在多边形内的算法
+
+参考了某个著名的算法，将其在NCL语言中实现。
+
+2012-11-28 晴
+==
+时隔几个月之后，今天又一次骑车上班了，感觉体力明显比不上以前，看来要坚持锻炼啊。
+
+前几天发现NCL的wrf\_user\_ll\_to\_ij()和wrf\_user\_ij\_to\_ll()两个函数算出的结果与直接获取wrfout文件XLAT、XLONG数据不一致。用wrf\_user\_ll\_to\_ij()得到i、j，比XLAT/XLONG对应的i、j index要大1。例如，用(i=0, j=0)位置的XLAT和XLONG带入wrf\_user\_ll\_to\_ij()，得到的结果是(1,1)。因此，为了不产生错位，在调用这两个函数时，需要加上相应的偏离值(即offset)，代码如下：
+
+	loc = wrf_user_ll_to_ij(a, lon, lat, True) - 1
+	ll  = wrf_user_ij_to_ll(a, i+1, j+1, True)
