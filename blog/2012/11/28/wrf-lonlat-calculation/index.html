@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: putty, - ygnid's Blog</title>
+  <title>WRF lon/lat calculation in NCL - ygnid's Blog</title>
   <meta name="author" content="ygnid">
 
   
-  <meta name="description" content="Category: putty,">
+  <meta name="description" content="前几天发现NCL的wrf_user_ll_to_ij()和wrf_user_ij_to_ll()两个函数算出的结果与直接获取wrfout文件XLAT、XLONG数据不一致。用wrf_user_ll_to_ij()得到i、j，比XLAT/XLONG对应的i、j index要大1。例如，用(i=0, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://ygnid.github.comblog/categories/putty-/">
+  <link rel="canonical" href="http://ygnid.github.com/blog/2012/11/28/wrf-lonlat-calculation/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -63,35 +63,88 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: Putty,</h1>
+    
+      <h1 class="entry-title">WRF Lon/lat Calculation in NCL</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-28T17:00:00+08:00" pubdate data-updated="true">Nov 28<span>th</span>, 2012</time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>前几天发现NCL的wrf_user_ll_to_ij()和wrf_user_ij_to_ll()两个函数算出的结果与直接获取wrfout文件XLAT、XLONG数据不一致。用wrf_user_ll_to_ij()得到i、j，比XLAT/XLONG对应的i、j index要大1。例如，用(i=0, j=0)位置的XLAT和XLONG带入wrf_user_ll_to_ij()，得到的结果是(1,1)。因此，为了不产生错位，在调用这两个函数时，需要加上相应的偏离值(即offset)，代码如下：</p>
 
-  
-  <h2>2012</h2>
-
-<article>
-  
-<h1><a href="/blog/2012/11/07/putty-auto-SSH/">实现Putty自动登录SSH</a></h1>
-<time datetime="2012-11-07T17:28:00+08:00" pubdate><span class='month'>Nov</span> <span class='day'>07</span> <span class='year'>2012</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/ssh/'>SSH</a>, <a class='category' href='/blog/categories/putty-/'>putty,</a></span>
-</footer>
-
-
-</article>
-
+<pre><code>loc = wrf_user_ll_to_ij(a, lon, lat, True) - 1
+ll  = wrf_user_ij_to_ll(a, i+1, j+1, True)
+</code></pre>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">ygnid</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-28T17:00:00+08:00" pubdate data-updated="true">Nov 28<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/ncl-/'>NCL,</a>, <a class='category' href='/blog/categories/wrf/'>WRF</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://ygnid.github.com/blog/2012/11/28/wrf-lonlat-calculation/" data-via="" data-counturl="http://ygnid.github.com/blog/2012/11/28/wrf-lonlat-calculation/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/11/23/FreeBSD-in-VirtualBox/" title="Previous Post: FreeBSD in VirtualBox">&laquo; FreeBSD in VirtualBox</a>
+      
+      
+    </p>
+  </footer>
 </article>
 
 </div>

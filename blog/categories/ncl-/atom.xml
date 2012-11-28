@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: NCL, | ygnid's Blog]]></title>
+  <link href="http://ygnid.github.com/blog/categories/ncl-/atom.xml" rel="self"/>
+  <link href="http://ygnid.github.com/"/>
+  <updated>2012-11-28T17:24:54+08:00</updated>
+  <id>http://ygnid.github.com/</id>
+  <author>
+    <name><![CDATA[ygnid]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[WRF lon/lat calculation in NCL]]></title>
+    <link href="http://ygnid.github.com/blog/2012/11/28/wrf-lonlat-calculation/"/>
+    <updated>2012-11-28T17:00:00+08:00</updated>
+    <id>http://ygnid.github.com/blog/2012/11/28/wrf-lonlat-calculation</id>
+    <content type="html"><![CDATA[<p>前几天发现NCL的wrf_user_ll_to_ij()和wrf_user_ij_to_ll()两个函数算出的结果与直接获取wrfout文件XLAT、XLONG数据不一致。用wrf_user_ll_to_ij()得到i、j，比XLAT/XLONG对应的i、j index要大1。例如，用(i=0, j=0)位置的XLAT和XLONG带入wrf_user_ll_to_ij()，得到的结果是(1,1)。因此，为了不产生错位，在调用这两个函数时，需要加上相应的偏离值(即offset)，代码如下：</p>
+
+<pre><code>loc = wrf_user_ll_to_ij(a, lon, lat, True) - 1
+ll  = wrf_user_ij_to_ll(a, i+1, j+1, True)
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>
