@@ -129,16 +129,16 @@
 <ol>
 <li><p><strong>NCL读取ASCII文件</strong>：可用readAsciiTable()加上str_get_field()完成。用前者可将整个文件存入一个string数组内，再用后者将想要的column提取出来。例如：</p>
 
-<pre><code> lines = readAsciiTable(csvFile,1,"string",1)
- delim = ","
- column_1 = strip_quotes ( ndtooned (str_get_field(lines, 1, delim)))
-</code></pre></li>
+<p> lines = readAsciiTable(csvFile,1,&#8221;string&#8221;,1)
+ delim = &#8220;,&#8221;
+ column_1 = strip_quotes ( ndtooned (str_get_field(lines, 1, delim)))</p></li>
 <li><p><strong>查找数组成员的序号</strong>：可用ind_nearest_coord()。如果想要数组的一个连续片段，可以用coordinate subscripting的方式。</p></li>
 <li><p><strong>NCL格式化输出TXT文本</strong>：以前用的是老土的循环生成各行string的方式，这次发现一个简单方法，即将<em>格式string</em>和<em>内容string</em>（通常是将数组用sprintf()或tostring()转化而来的string数组）直接用“+”连接起来。例如：</p>
 
-<pre><code> printArray = ( string1 + ", " + string2 \
-                             + ", "+ sprintf("%6.2f", float_array1) + ", "+ sprinti("%3i", int_array1) \
-                             + ", "+ sprintf("%6.2f", float_array2) + ", "+ sprinti("%3i", int_array2))
+<p> printArray = ( string1 + &#8220;, &#8221; + string2 \</p>
+
+<pre><code>                            + ", "+ sprintf("%6.2f", float_array1) + ", "+ sprinti("%3i", int_array1) \
+                            + ", "+ sprintf("%6.2f", float_array2) + ", "+ sprinti("%3i", int_array2))
 </code></pre></li>
 </ol>
 
