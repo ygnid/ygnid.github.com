@@ -9,7 +9,8 @@
   <meta name="author" content="ygnid">
 
   
-  <meta name="description" content="前几天发现NCL的wrf_user_ll_to_ij()和wrf_user_ij_to_ll()两个函数算出的结果与直接获取wrfout文件XLAT、XLONG数据不一致。用wrf_user_ll_to_ij()得到i、j，比XLAT/XLONG对应的i、j index要大1。例如，用(i=0, &hellip;">
+  <meta name="description" content="1. Install Backfire 10.03 for first time install see Openwrt documentation
+for upgrades from Kamikaze use the .trx and install via the web interface &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -64,6 +65,214 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/12/05/guide-to-setup-multiwan/">Guide to Setup Multiwan in OpenWrt</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-05T09:45:00+08:00" pubdate data-updated="true">Dec 5<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>1. Install Backfire 10.03</h1>
+
+<ul>
+<li><em>for first time</em> install see Openwrt documentation</li>
+<li><em>for upgrades from Kamikaze</em> use the .trx and install via the web interface</li>
+<li><p><em>for bricked <smirk> routers</em> see tftp install of .bin file <a href="http://wiki.openwrt.org/doc/howto/tftp">http://wiki.openwrt.org/doc/howto/tftp</a></p>
+
+<p>  note: don&#8217;t forget to login via telnet and change root passwd for ssh to work</p></li>
+</ul>
+
+
+<h1>2. Create extra Vlan for Wan2</h1>
+
+<p>I do this via /etc/config/newtork.</p>
+
+<p>note: I removed port &#8220;0&#8221; from eth0_0 and gave it to eth0_2.
+You can configure wan and wan2 proto as dhcp to start and then use the web interface to configure the pppoe or static ip later.
+Use the same DNS servers I&#8217;m using if you&#8217;re having DNS problems. Some ISPs only allow DNS connections from their IP blocks.</p>
+
+<pre><code>    root@culiat-wg:~# cat /etc/config/network
+
+    config 'switch' 'eth0'
+        option 'enable' '1'
+
+    config 'switch_vlan' 'eth0_0'
+        option 'device' 'eth0'
+        option 'vlan' '0'
+        option 'ports' '1 2 3 5'
+
+    config 'switch_vlan' 'eth0_1'
+        option 'device' 'eth0'
+        option 'vlan' '1'
+        option 'ports' '4 5'
+
+    config 'switch_vlan' 'eth0_2'
+        option 'device' 'eth0'
+        option 'vlan' '2'
+        option 'ports' '0 5'
+
+    config 'interface' 'loopback'
+        option 'ifname' 'lo'
+        option 'proto' 'static'
+        option 'ipaddr' '127.0.0.1'
+        option 'netmask' '255.0.0.0'
+
+    config 'interface' 'lan'
+        option 'type' 'bridge'
+        option 'ifname' 'eth0.0'
+        option 'proto' 'static'
+        option 'stp' '1'
+        option 'ipaddr' '192.168.1.1'
+        option 'netmask' '255.255.255.0'
+
+    config 'interface' 'wan'
+        option 'ifname' 'eth0.1'
+        option 'proto' 'dhcp'
+        option 'dns' '216.146.35.113 216.146.36.113 8.8.8.8 8.8.4.4'
+        option 'defaultroute' '0'
+        option 'peerdns' '0'
+
+    config 'interface' 'wan2'
+        option 'ifname' 'eth0.2'
+        option 'dns' '216.146.35.113 216.146.36.113 8.8.8.8 8.8.4.4'
+        option 'proto' 'dhcp'
+        option 'defaultroute' '0'
+        option 'peerdns' '0'
+</code></pre>
+
+<h1>3. Install prerequisite software</h1>
+
+<p>ip, iptables, iptables-utils, iptables-mod-conntrack, iptables-mod-conntrack-extra, iptables-mod-ipopt and kmod-ipt-ipopt
+this is how I do it:</p>
+
+<ol>
+<li><p>go to backfire packages: <a href="http://downloads.openwrt.org/backfire/10.03/brcm47xx/packages/">http://downloads.openwrt.org/backfire/10.03/brcm47xx/packages/</a></p></li>
+<li><p>right click a link to a package and &#8220;Copy Link Location&#8221;
+c. go to /tmp directory and run</p>
+
+<pre><code>  opkg install http://downloads.openwrt.org/backfire/10.03/brcm47xx/packages/ip_2.6.29-1-2_brcm47xx.ipk
+</code></pre></li>
+</ol>
+
+
+<p>note: if you&#8217;re new to all of this it&#8217;s better to install all the applications first including multiwan before configuring vlans so your internet connection does not go kookie on you. If you did because you&#8217;re folowing this guide, then just shutdown a interface like so:</p>
+
+<pre><code>    ifconfig eth0.2 down
+</code></pre>
+
+<h1>4. Install multiwan and it&#8217;s web control package (luci-app)</h1>
+
+<p>Reboot to refresh the web ui. I always need to do this otherwise the link does not show up in networking.</p>
+
+<h1>5. Configure Wans &amp;&amp; configure multiwan</h1>
+
+<h2>Wans</h2>
+
+<p><strong>Network > Interfaces > Wan/WAN2</strong></p>
+
+<p>note: when asked which firewall zone to add wan2 choose wan so it has the same firewall rules for wan connections. Otherwise you&#8217;ll have to manually recreate the fw rules for wan2.</p>
+
+<h2>Multiwan</h2>
+
+<p><strong>Network > Multiwan</strong></p>
+
+<p>checkout the bottom page to see samples of the settings.
+here&#8217;s how i got mine setup:</p>
+
+<ul>
+<li><p>I only have two internet connections so I always remove the last two wan interfaces. I also comment out MWAN3 and MWAN4 in /etc/iproute2/rt_tables (although it may not be necessary).</p></li>
+<li><p>Load Balancer Distribution = 1 for even connection distribution</p>
+
+<p>  note: You&#8217;ll get per connection distribution not per packet so don&#8217;t expect one download to come from both gateways. Lots of talk on this in the internet.</p>
+
+<p>  Failover = LoadBalancer for both links</p></li>
+<li><p>Traffic Rules</p>
+
+<p>  note: checkout the examples</p>
+
+<pre><code>  Source, Destination, protocol, Ports, WAN Uplink
+  all, all,all,all, Load Balancer
+  all, all, UDP, all, wan &lt;-- this is so all vpn and voip connection goes through 1 gateway only
+</code></pre>
+
+<p>that&#8217;s it!</p></li>
+</ul>
+
+
+<h1>6. Test.</h1>
+
+<ul>
+<li><p><strong>Status > Interfaces</strong> should show traffic going through both interfaces.</p></li>
+<li><p>route distribution</p>
+
+<pre><code>  root@culiat-wg:~# ip route show table 123
+  192.168.2.0/24 dev eth0.2  proto kernel  scope link  src 192.168.2.214
+  192.168.1.0/24 dev br-lan  proto kernel  scope link  src 192.168.1.1
+  114.108.201.0/24 dev eth0.1  proto kernel  scope link  src 114.108.201.49
+  default  proto static
+  nexthop via 114.108.201.1  dev eth0.1 weight 1
+  nexthop via 192.168.2.1  dev eth0.2 weight 1
+</code></pre></li>
+<li><p>&#8220;route&#8221; should give you two default gateways</p></li>
+<li><p>try a torrent with lots of seeders. If you have a internet line that can do 90kbps max download, and another that can do 180kbps max if multiwan is working properly you should get a download rate greater than the higher rated link.</p></li>
+<li><p>pulling the plug from a wan port should still give you internet connection</p></li>
+</ul>
+
+
+<h1>7. Troubleshooting</h1>
+
+<p>There&#8217;s a problem if</p>
+
+<ul>
+<li>when you refresh the Interface status page and the Transfer rate of one interface does not change</li>
+<li>when you you go the the Interface Status page you only see one wan interface</li>
+<li>when you do &#8220;route&#8221; you only get one default gateway</li>
+<li>when you do &#8220;ip route show table 123&#8221; you don&#8217;t get nexthops</li>
+<li>etc.</li>
+</ul>
+
+
+<h1>8. Extras</h1>
+
+<p>If you have two or more connections to the same ISP you should try:</p>
+
+<ul>
+<li>ECMP using quagga <a href="http://quagga.net/faq/kodgehopper-ecmp.html">http://quagga.net/faq/kodgehopper-ecmp.html</a> &lt;&#8211; hard core network stuff (makes you feel like a genius. :D)</li>
+<li>Channel bonding &lt;&#8211; this gives you per packet load distribution (effectively doubles your transfer rates)</li>
+</ul>
+
+
+<p>That&#8217;s it! Multiwan gives you protection from internet disconnection and doubles your transfer rate during heavy usage.</p>
+
+<p>Register for a free DDNS account and when you&#8217;re in the office ask your maid to turn on the power on your routers and show off your shining new multiwan connection to your office mates. Open up several consoles and start downloading from several high bandwidth sites (kernel.org, nvidia, ati, etc.). show them how you&#8217;re getting a combined download rate faster than the rated capacity of your individual internet subscriptions. Makes you top dog until the wife discovers you&#8217;re paying for two internet lines. :D</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -268,6 +477,10 @@ end
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/12/05/guide-to-setup-multiwan/">Guide to setup multiwan in OpenWrt</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2012/11/28/wrf-lonlat-calculation/">WRF lon/lat calculation in NCL</a>
